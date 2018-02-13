@@ -20,10 +20,10 @@ unitTests :: TestTree
 unitTests = testGroup "Comma splitting"
   [
     testCase "Split nothing if no comma" $ 
-      L.splitComma "none" @?= ["none"]
+      L.commas "none" @?= ["none"]
   ,
     testCase "Split on comma" $ 
-      L.splitComma "a,b,foo,20" @?= ["a","b","foo","20"]
+      L.commas "a,b,foo,20" @?= ["a","b","foo","20"]
   ]
 
 columnsTests :: TestTree
