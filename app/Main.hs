@@ -21,8 +21,13 @@ handleArgs = do
 
 
 dispatch :: CSVArgs -> String -> String
+-- If we just want to print the arguments
 dispatch csv @ (CSVArgs _ _ True _) = const $ show csv
+-- If we are returning columns
+dispatch (CSVArgs _ columns @ (_:_) _ _) = L.getColumns columns
+-- If we are just printing headers
 dispatch (CSVArgs True _ _ _) = L.getAndFormatHeaders
+-- If we aren't doing anything, then just pass through
 dispatch (CSVArgs False _ _ _) = id
 
 handleDataStream :: Maybe String -> IO String

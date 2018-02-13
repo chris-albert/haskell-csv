@@ -10,7 +10,11 @@ main = do
   defaultMain tests
 
 tests :: TestTree
-tests = testGroup "Properties" [unitTests]
+tests = testGroup "Properties" 
+  [
+    unitTests
+   ,columnsTests
+  ]
 
 unitTests :: TestTree
 unitTests = testGroup "Comma splitting"
@@ -22,4 +26,12 @@ unitTests = testGroup "Comma splitting"
       L.splitComma "a,b,foo,20" @?= ["a","b","foo","20"]
   ]
 
-
+columnsTests :: TestTree
+columnsTests = testGroup "Columns"
+  [
+    testCase "Get nothing if no columns found" $
+      L.getColumnsIndex ["a","b"] ["c"] @?= []
+  ,
+    testCase "Get nothing if no columns found" $
+      L.getColumnsIndex ["a","b","c"] ["c","a"] @?= [2,0]
+  ]
