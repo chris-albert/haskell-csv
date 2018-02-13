@@ -34,4 +34,4 @@ getColumns selectedColumns stream =
   let headers = commas $ getHeaders stream :: [String]
       indexs = getColumnsIndex headers selectedColumns :: [Int]
       l = commas <$> lines stream :: [[String]]
-   in unlines [ line !! c | line <- l, c <- indexs]    
+   in unlines $ fmap (`getRow` indexs) l
