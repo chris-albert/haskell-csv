@@ -34,3 +34,10 @@ header2
 header3
 header4
 ```
+
+### Step 3. Get columns from file
+```
+$ hcsv -c header1,header2 filename.csv
+row1col1,row1col2
+row2col1,row2col2
+```
