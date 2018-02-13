@@ -5,11 +5,9 @@ This is a haskell project for working with csv data. Since i haven't found a goo
 Running: 
 ```
 # From this directory
-$ .stack-work/dist/x86_64-osx/Cabal-2.0.1.0/build/haskell-csv-exe/haskell-csv-exe
-
-# or
-
 $ stack exec haskell-csv-exe -- -h test/file.csv
+# or
+$ cat test/file.csv | stack exec haskell-csv-exe -- -h
 ```
 
 Testing:
