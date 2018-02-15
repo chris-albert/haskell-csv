@@ -34,9 +34,9 @@ getRow columns indexs =
 
 getColumns :: [String] -> String -> String
 getColumns selectedColumns stream =
-  let headers = commas $ getHeaders stream :: [String]
-      indexs = getColumnsIndex headers selectedColumns :: [Int]
-      l = commas <$> lines stream :: [[String]]
+  let headers = commas $ getHeaders stream
+      indexs  = getColumnsIndex headers selectedColumns
+      l       = commas <$> lines stream
    in unlines $ fmap (`getRow` indexs) l
 
 formatColumns :: Int -> String -> String
@@ -44,9 +44,13 @@ formatColumns width stream = fieldLens stream (pad width)
 
 pad :: Int -> String -> String
 pad w i = 
-  let cut = take w i
+  let cut = take w (remove ' ' i)
       diff = w - length cut
   in if diff > 0 then cut ++ replicate diff ' ' else cut
+
+remove :: Eq a => a -> [a] -> [a]
+remove i []   = []
+remove i (x:xs) = if x == i then remove i xs else x : remove i xs 
 
 fieldLens :: String -> (String -> String) -> String
 fieldLens stream func = 

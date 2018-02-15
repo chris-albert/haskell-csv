@@ -14,8 +14,8 @@ main = handleArgs
 
 handleArgs :: IO ()
 handleArgs = do
-  args <- getArgs
-  stream <- handleDataStream $ file args
+  args      <- getArgs
+  stream    <- handleDataStream $ file args
   let output = dispatch args stream
   putStr output
 
@@ -39,19 +39,19 @@ formatFuncs =
   ]
 
 doIfTrue :: (String -> String) -> Bool -> (String -> String)
-doIfTrue f True = f
+doIfTrue f True  = f
 doIfTrue _ False = id
 
 doIfJust :: (a -> String -> String) -> Maybe a -> (String -> String)
-doIfJust _ Nothing = id
+doIfJust _ Nothing  = id
 doIfJust f (Just a) = f a 
 
 dispatchPrint :: CSVArgs -> String -> String
 dispatchPrint (CSVArgs _ columns @ (_:_) _ _ _ _) = L.getColumns columns
-dispatchPrint _ = id
+dispatchPrint _                                   = id
 
 handleDataStream :: Maybe String -> IO String
-handleDataStream Nothing = getContents
+handleDataStream Nothing         = getContents
 handleDataStream (Just fileName) = 
   hGetContents =<< openFile fileName ReadMode
 
