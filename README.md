@@ -39,31 +39,3 @@ $ stack build
 # Ouputs bin to /Users/chrisalbert/git/haskell-csv/.stack-work/install/x86_64-osx/lts-10.5/8.2.2/bin
 ```
 
-Im going to go through this 1 problem at a time and write tests and verify along the way.
-
-### Step 1. Print headers from file
-```
-$ hcsv "filename.csv"
-header1
-header2
-header3
-header4
-```
-
-### Step 2. Print headers from stdin
-```
-$ cat filename.csv > hcsv
-header1
-header2
-header3
-header4
-```
-
-After making it be able to read from file and stdin, there is a function `handleDataStream` which abstracts this concept.
-
-### Step 3. Get columns
-```
-$ hcsv -c header1,header2 filename.csv
-row1col1,row1col2
-row2col1,row2col2
-```
