@@ -13,6 +13,8 @@ Common flags:
   -h --headers          Display headers only
   -c --columns=String   Columns to display
   -s --showargs         Prints parsed arguments
+  -n --noheaders        Removes headers from output
+  -w --width=INT        Width of each column
   -? --help             Display help message
   -V --version          Print version information
      --numeric-version  Print just the version number
