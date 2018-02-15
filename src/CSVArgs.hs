@@ -25,7 +25,7 @@ csvArgs = CSVArgs
    ,file = def &= args &= typFile
    ,noHeaders = def &= help "Removes headers from output"
    ,width = def &= help "Width of each column"
-  } &= summary "hcsv v0.0.1, (C) Chris Albert"
+  } &= summary "hcsv v0.0.2, (C) Chris Albert"
 
 columnsL :: Lens' CSVArgs [String]
 columnsL = lens columns (\a c -> a {columns = c})

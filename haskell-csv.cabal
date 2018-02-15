@@ -1,17 +1,10 @@
--- This file has been generated from package.yaml by hpack version 0.20.0.
---
--- see: https://github.com/sol/hpack
---
--- hash: eaeea6efa86dc64b2b7a310637a285b228eaca06fd6f5747330fb2b513f2298c
-
 name:           haskell-csv
-version:        0.1.0.0
+version:        0.0.2
 description:    Please see the README on Github at <https://github.com/githubuser/haskell-csv#readme>
 homepage:       https://github.com/githubuser/haskell-csv#readme
 bug-reports:    https://github.com/githubuser/haskell-csv/issues
-author:         Author name here
-maintainer:     example@example.com
-copyright:      2018 Author name here
+author:         Chris Albert
+copyright:      2018 Chris Albert
 license:        BSD3
 build-type:     Simple
 cabal-version:  >= 1.10

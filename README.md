@@ -5,7 +5,7 @@ This is a haskell project for working with csv data. Since i haven't found a goo
 Current options:
 ```
 $ hcsv -?
-hcsv v0.0.1, (C) Chris Albert
+hcsv v0.0.2, (C) Chris Albert
 
 csvargs [OPTIONS] [FILE]
 
