@@ -22,8 +22,6 @@ handleArgs = do
 dispatch :: CSVArgs -> String -> String
 -- If we just want to print the arguments
 dispatch csv @ (CSVArgs _ _ True _ _ _) = const $ show csv
--- If we aren't doing anything, then just pass through
-dispatch (CSVArgs _ _ _ _ True _) = L.killHeaders
 -- If we are printing the body
 dispatch csvArgs = 
   let body    = dispatchPrint csvArgs
@@ -31,14 +29,22 @@ dispatch csvArgs =
 
 runFormats :: CSVArgs -> String -> String
 runFormats args = 
-  foldl (\f i -> if fst i args then snd i else id) id formatFuncs
+  foldl (\f i -> f . i args) id formatFuncs  
 
-formatFuncs :: [(CSVArgs -> Bool,String -> String)]
-formatFuncs = 
+formatFuncs :: [CSVArgs -> (String -> String)]
+formatFuncs =
   [
-    (noHeaders,L.killHeaders)
-    ,(isJust . width,id)
+    doIfTrue L.killHeaders . noHeaders
+   ,doIfJust L.formatColumns . width
   ]
+
+doIfTrue :: (String -> String) -> Bool -> (String -> String)
+doIfTrue f True = f
+doIfTrue _ False = id
+
+doIfJust :: (a -> String -> String) -> Maybe a -> (String -> String)
+doIfJust _ Nothing = id
+doIfJust f (Just a) = f a 
 
 dispatchPrint :: CSVArgs -> String -> String
 dispatchPrint (CSVArgs _ columns @ (_:_) _ _ _ _) = L.getColumns columns
