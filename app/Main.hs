@@ -23,14 +23,17 @@ handleArgs = do
 dispatch :: CSVArgs -> String -> String
 -- If we just want to print the arguments
 dispatch csv @ (CSVArgs _ _ True _ _) = const $ show csv
--- If we are returning columns
-dispatch (CSVArgs _ columns @ (_:_) _ _ True) = L.killHeaders . L.getColumns columns
-dispatch (CSVArgs _ columns @ (_:_) _ _ False) = L.getColumns columns
--- If we are just printing headers
-dispatch (CSVArgs True _ _ _ _) = L.getAndFormatHeaders
 -- If we aren't doing anything, then just pass through
 dispatch (CSVArgs _ _ _ _ True) = L.killHeaders
-dispatch _ = id
+-- If we are printing the body
+dispatch csvArgs = 
+  let body    = dispatchPrint csvArgs
+      fmtFunc = if noHeaders csvArgs then L.killHeaders else id
+   in fmtFunc . body
+
+dispatchPrint :: CSVArgs -> String -> String
+dispatchPrint (CSVArgs _ columns @ (_:_) _ _ _) = L.getColumns columns
+dispatchPrint _ = id
 
 handleDataStream :: Maybe String -> IO String
 handleDataStream Nothing = getContents
