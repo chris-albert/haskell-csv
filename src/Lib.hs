@@ -38,3 +38,18 @@ getColumns selectedColumns stream =
       indexs = getColumnsIndex headers selectedColumns :: [Int]
       l = commas <$> lines stream :: [[String]]
    in unlines $ fmap (`getRow` indexs) l
+
+formatColumns :: Int -> String -> String
+formatColumns width stream = fieldLens stream (pad width)
+
+pad :: Int -> String -> String
+pad w i = 
+  let cut = take w i
+      diff = w - length cut
+  in if diff > 0 then cut ++ replicate diff ' ' else cut
+
+fieldLens :: String -> (String -> String) -> String
+fieldLens stream func = 
+  let fields = commas <$> lines stream
+      mapped = fmap (fmap func) fields
+   in unlines $ fmap uncommas mapped 

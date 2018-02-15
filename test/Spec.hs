@@ -15,6 +15,7 @@ tests = testGroup "Properties"
     unitTests
    ,columnsTests
    ,killHeadersTests
+   ,formatColumnsTests
   ]
 
 unitTests :: TestTree
@@ -42,4 +43,11 @@ killHeadersTests = testGroup "Kill Headers"
   [
     testCase "Kill first line" $
       L.killHeaders "first,second\na,b\nc,d" @?= "a,b\nc,d\n"
+  ]
+
+formatColumnsTests :: TestTree
+formatColumnsTests = testGroup "Format columns"
+  [
+    testCase "Pad characters" $
+      L.formatColumns 5 "first,second\na,b\nc,d" @?= "first,secon\na    ,b    \nc    ,d    \n"
   ]
