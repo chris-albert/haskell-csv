@@ -14,6 +14,7 @@ tests = testGroup "Properties"
   [
     unitTests
    ,columnsTests
+   ,killHeadersTests
   ]
 
 unitTests :: TestTree
@@ -34,4 +35,11 @@ columnsTests = testGroup "Columns"
   ,
     testCase "Get nothing if no columns found" $
       L.getColumnsIndex ["a","b","c"] ["c","a"] @?= [2,0]
+  ]
+
+killHeadersTests :: TestTree
+killHeadersTests = testGroup "Kill Headers"
+  [
+    testCase "Kill first line" $
+      L.killHeaders "first,second\na,b\nc,d" @?= "a,b\nc,d\n"
   ]

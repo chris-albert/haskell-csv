@@ -16,6 +16,9 @@ getAndFormatHeaders = formatHeaders . getHeaders
 getHeaders :: String -> String
 getHeaders = head . lines
 
+killHeaders :: String -> String
+killHeaders = unlines . tail . lines
+
 formatHeaders :: String -> String
 formatHeaders = unlines . commas
 

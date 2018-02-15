@@ -11,6 +11,7 @@ data CSVArgs = CSVArgs
     ,columns :: [String]
     ,showArgs :: Bool
     ,file :: Maybe FilePath
+    ,noHeaders :: Bool
   }
   deriving (Data,Typeable,Show,Eq)
 
@@ -21,6 +22,7 @@ csvArgs = CSVArgs
    ,columns = def &= help "Columns to display" &= typ "String"
    ,showArgs = def &= help "Prints parsed arguments" &= typ "Bool"
    ,file = def &= args &= typFile
+   ,noHeaders = def &= help "Removes headers from output"
   } &= summary "hcsv v0.0.1, (C) Chris Albert"
 
 columnsL :: Lens' CSVArgs [String]
